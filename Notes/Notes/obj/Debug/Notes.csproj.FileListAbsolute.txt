@@ -1,0 +1,16 @@
+C:\Users\Фрин\source\repos\Notes\Notes\obj\Debug\Notes.csprojAssemblyReference.cache
+C:\Users\Фрин\source\repos\Notes\Notes\obj\Debug\MainWindow.g.cs
+C:\Users\Фрин\source\repos\Notes\Notes\obj\Debug\App.g.cs
+C:\Users\Фрин\source\repos\Notes\Notes\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Фрин\source\repos\Notes\Notes\obj\Debug\Notes_MarkupCompile.cache
+C:\Users\Фрин\source\repos\Notes\Notes\obj\Debug\Notes_MarkupCompile.lref
+C:\Users\Фрин\source\repos\Notes\Notes\bin\Debug\Notes.exe.config
+C:\Users\Фрин\source\repos\Notes\Notes\bin\Debug\Notes.exe
+C:\Users\Фрин\source\repos\Notes\Notes\bin\Debug\Notes.pdb
+C:\Users\Фрин\source\repos\Notes\Notes\obj\Debug\MainWindow.baml
+C:\Users\Фрин\source\repos\Notes\Notes\obj\Debug\Notes.g.resources
+C:\Users\Фрин\source\repos\Notes\Notes\obj\Debug\Notes.Properties.Resources.resources
+C:\Users\Фрин\source\repos\Notes\Notes\obj\Debug\Notes.csproj.GenerateResource.cache
+C:\Users\Фрин\source\repos\Notes\Notes\obj\Debug\Notes.csproj.CoreCompileInputs.cache
+C:\Users\Фрин\source\repos\Notes\Notes\obj\Debug\Notes.exe
+C:\Users\Фрин\source\repos\Notes\Notes\obj\Debug\Notes.pdb
