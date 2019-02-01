@@ -13,21 +13,46 @@ namespace Notes
     public class MainVM : INotifyPropertyChanged
     {
         private Note _note;
+        public Note Note1
+        {
+            get { return _note; }
+            set
+            {
+                if (Num != -1)
+                {
+                    _note = value;
+                    Theme = _note.Theme;
+                    Date = _note.Date;
+                    Text = _note.Text;
+                    OnPropertyChanged("Note1");
+                }
+                else
+                {
+                    Theme = string.Empty;
+                    Date = string.Empty;
+                    Text = string.Empty;
+                }
+            }
+        }
+
         private Notes_Service _notes_Service;
-       
+        private int num; //SelectedIndex
+        public int Num { get { return num; } set { num = value; OnPropertyChanged("Num"); } }
 
 
         public MainVM()
         {
-            
-
             _note = new Note();
-            Note note1 = new Note();
-            _notelist = new List<Note>();
+            Num = -1;
+            _notelist = new ObservableCollection<Note>();
             _notes_Service = new Notes_Service();
+            _notelist = _notes_Service.LoadList();
+            OnPropertyChanged("NoteList");
             CreateSaveCommand();
             CreateCancelCommand();
-            CreateLoadCommand();
+            CreateCreatCommand();
+            CreateDelCommand();
+
         }
         
 
@@ -41,15 +66,16 @@ namespace Notes
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private List<Note> _notelist;
-        public List<Note> NoteList
+        private ObservableCollection<Note> _notelist;
+        public ObservableCollection<Note> NoteList
         {
-            get { return _notelist; }
+            get { return _notelist;  }
             set
             {
-                _notelist.Add(_note);
+                
+                _notelist = value;
                 OnPropertyChanged("NoteList"); 
-}
+            }
         }
         private string _theme;
         public string Theme
@@ -87,7 +113,7 @@ namespace Notes
 
         private bool CanExecuteSaveCommand()
         {
-            return !string.IsNullOrEmpty(Theme);
+            return ( Num!=-1);
         }
 
         private void CreateSaveCommand()
@@ -97,66 +123,68 @@ namespace Notes
 
         public void SaveExecute()
         {
-            _note.Theme = Theme;
-            _note.Date = Date;
-            _note.Text = Text;
-            //_notelist.Add(_note);
+            int NumTemp = Num;
+            Note1.Theme = Theme;
+            Note1.Date = Date;
+            Note1.Text = Text;
             _notes_Service.SaveList(_notelist);
+            _notelist = _notes_Service.LoadList();
             OnPropertyChanged("NoteList");
+            Num = NumTemp;
         }
         //----------------------------------------------------------------------
-        public ICommand CreateCommand
+        public ICommand CreatCommand
         {
             get;
             internal set;
         }
 
-        private bool CanExecuteCreateCommand()
-        {
-            return !string.IsNullOrEmpty(Theme);
-        }
-
-        private void CreateCreateCommand()
-        {
-            SaveCommand = new RelayCommand(CreateExecute, CanExecuteSaveCommand);
-        }
-
-        public void CreateExecute()
-        {
-            //_note.Theme = Theme;
-            //_note.Date = Date;
-            //_note.Text = Text;
-            ////_notelist.Add(_note);
-            //_notes_Service.SaveList(_notelist);
-            //OnPropertyChanged("NoteList");
-        }
-
-        //----------------------------------------------------------------------
-
-        public ICommand LoadCommand
-        {
-            get;
-            internal set;
-        }
-
-        private bool CanExecuteLoadCommand()
+        private bool CanExecuteCreatCommand()
         {
             return true;
         }
 
-        private void CreateLoadCommand()
+        private void CreateCreatCommand()
         {
-            LoadCommand = new RelayCommand(LoadExecute, CanExecuteLoadCommand);
+            CreatCommand = new RelayCommand(CreatExecute, CanExecuteCreatCommand);
         }
 
-        public void LoadExecute()
+        public void CreatExecute()
         {
-            //_note.LoadNote();
-            OnPropertyChanged("Theme");
-            OnPropertyChanged("Date");
-            OnPropertyChanged("Text");
+            _note = new Note
+            {
+                Theme = "Theme",
+                Date = "Date",
+                Text = "Text"
+            };
+            _notelist.Add(_note);
+            
+            OnPropertyChanged("NoteList");
         }
 
+        //----------------------------------------------------------------------
+        public ICommand DelCommand
+        {
+            get;
+            internal set;
+        }
+
+        private bool CanExecuteDelCommand()
+        {
+            return Num != -1;
+        }
+
+        private void CreateDelCommand()
+        {
+            DelCommand = new RelayCommand(DelExecute, CanExecuteDelCommand);
+        }
+
+        public void DelExecute()
+        {
+            _notelist.RemoveAt(Num);
+            _notes_Service.SaveList(_notelist);
+            OnPropertyChanged("NoteList");
+        }
 
         //----------------------------------------------------------------------
 
@@ -165,19 +193,25 @@ namespace Notes
             get;
             internal set;
         }
-
+        private bool CanExecuteCancelCommand()
+        {
+            return Num != -1;
+        }
         private void CreateCancelCommand()
         {
-            CancelCommand = new RelayCommand(CancelExecute);
+            CancelCommand = new RelayCommand(CancelExecute, CanExecuteCancelCommand);
         }
 
         public void CancelExecute()
         {
-            Theme = string.Empty;
-            Date = string.Empty;
-            Text = string.Empty;
+            Theme = Note1.Theme;
+            Date = Note1.Date;
+            Text = Note1.Text;
         }
 
+        
+
+        //----------------------------------------------------------------------
     }
     //----------------------------------------------------------------------
 

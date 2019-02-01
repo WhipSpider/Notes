@@ -14,7 +14,7 @@
     <Grid >
         <Menu x:Name="menu" Height="24" VerticalAlignment="Top">
             <MenuItem Header="Заметки" Height="24" Width="100" BorderBrush="Black">
-                <MenuItem Header="Создать" Command="{Binding Path= SaveCommand}" HorizontalAlignment="Left" Height="24" Width="140"/>
+                <MenuItem Header="Создать" Command="{Binding Path= CreatCommand}" HorizontalAlignment="Left" Height="24" Width="140"/>
             </MenuItem>
         </Menu>
         <TextBox x:Name="notes_theme" Margin="104,59,13,0" TextWrapping="Wrap" Text="{Binding Theme, UpdateSourceTrigger=PropertyChanged}" BorderBrush="#FF060608" Height="23" VerticalAlignment="Top"/>
@@ -22,7 +22,7 @@
         <TextBox x:Name="notes_text"  Margin="105,177,13,40" TextWrapping="Wrap" Text="{Binding Text, UpdateSourceTrigger=PropertyChanged}"  BorderBrush="#FF040406" Width="auto" Height="auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
         <Button x:Name="save" Content="Сохранить" Command="{Binding Path= SaveCommand}" Margin="0,0,13,10" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="85" Height="25" />
         <Button x:Name="cancel" Content="Отмена" Command="{Binding Path= CancelCommand}" Margin="0,0,118,10" Width="90" Height="25" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
-        <ListBox x:Name="listBox" Margin="5,29,0,40" HorizontalAlignment="Left" Width="90" ItemsSource="{Binding Path=NoteList, UpdateSourceTrigger=PropertyChanged}">
+        <ListBox x:Name="listBox" Margin="5,29,0,40" SelectedIndex="{Binding Path=Num}" SelectedItem="{Binding Path=Note1,UpdateSourceTrigger=PropertyChanged}"  HorizontalAlignment="Left" Width="90" ItemsSource="{Binding Path=NoteList, UpdateSourceTrigger=PropertyChanged}" >
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
                     <Setter Property="Height" Value="50" />
@@ -32,5 +32,6 @@
         <Label x:Name="label_theme" Content="Тема" Height="25" Margin="105,29,13,0" VerticalAlignment="Top"/>
         <Label x:Name="label_date" Content="Дата" Margin="105,87,13,0" VerticalAlignment="Top"/>
         <Label x:Name="label_text" Content="Текст заметки" Margin="105,146,13,0" VerticalAlignment="Top"/>
+        <Button x:Name="Del" Content="Удалить" Margin="0,0,230,10" HorizontalAlignment="Right" Width="90" Height="25" VerticalAlignment="Bottom" Command="{Binding Path= DelCommand}"/>
     </Grid>
 </Window>

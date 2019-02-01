@@ -19,6 +19,10 @@ namespace Notes
         public string Date { get; set; }
         [DataMember]
         public string Text { get; set; }
+        public override string ToString()
+        {
+            return Theme;
+        }
 
         //public void SaveNote()
         //{
@@ -42,7 +46,7 @@ namespace Notes
         //public void LoadNote()
         //{
         //    OpenFileDialog loadFileDialog1 = new OpenFileDialog();
-            
+
         //    loadFileDialog1.Filter = "Note|*.nt";
 
         //    if (loadFileDialog1.ShowDialog() == true)
